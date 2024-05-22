@@ -1,32 +1,34 @@
-# @paper/checkbox-tree
+# paper-checkbox-tree
 
-![Version](https://img.shields.io/npm/v/@paper/checkbox-tree)
-![License](https://img.shields.io/npm/l/@paper/checkbox-tree)
+![Version](https://img.shields.io/npm/v/paper-checkbox-tree)
+![License](https://img.shields.io/npm/l/paper-checkbox-tree)
 
 ## Description
 
-`@paper/checkbox-tree` is a JavaScript component that transforms a select element into a checkbox tree.
+`paper-checkbox-tree` is a JavaScript component that transforms a select element into a checkbox tree.
+
+![image](https://github.com/dldevinc/paper-checkbox-tree/assets/6928240/9aef1bd2-8717-4322-abde-2c41e301107b)
 
 ## Installation
 
 You can include the library directly in your HTML file from the CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@paper/checkbox-tree"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@paper/checkbox-tree/dist/index.css">
+<script src="https://cdn.jsdelivr.net/npm/paper-checkbox-tree"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/paper-checkbox-tree/dist/index.css">
 ```
 
 Alternatively, you can install the library via npm:
 
 ```bash
-npm install @paper/checkbox-tree
+npm install paper-checkbox-tree
 ```
 
 ## Usage
 
 ```js
-import CheckboxTree from "@paper/checkbox-tree";
-import "@paper/checkbox-tree/dist/index.css";
+import CheckboxTree from "paper-checkbox-tree";
+import "paper-checkbox-tree/dist/index.css";
 
 // Example usage:
 const selectElement = document.getElementById("your-select-element");
