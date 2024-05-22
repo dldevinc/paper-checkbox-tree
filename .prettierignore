@@ -1,0 +1,10 @@
+node_modules/
+dist/
+cypress/
+*.yml
+*.yaml
+*.html
+*.min.js
+*.min.css
+package.json
+package-lock.json

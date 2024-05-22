@@ -1,0 +1,62 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./dist/index.css">
+  <script src="./dist/umd/index.js" defer></script>
+</head>
+<body>
+  <form action="" method="get">
+    <select multiple name="interest" class="pct-tree">
+      <optgroup label="Authentication and Authorization">
+        <option value="can_add_user" disabled>user | Can add user</option>
+        <option value="can_change_user">user | Can change user</option>
+        <option value="can_delete_user" selected>user | Can delete user</option>
+        <option value="can_view_user">user | Can view user</option>
+      </optgroup>
+
+      <optgroup label="Product Management">
+        <option value="can_add_product">product | Can add product</option>
+        <option value="can_change_product">product | Can change product</option>
+        <option value="can_delete_product">product | Can delete product</option>
+        <option value="can_view_product">product | Can view product</option>
+      </optgroup>
+
+      <optgroup label="Order Management">
+        <option value="can_add_order">order | Can add order</option>
+        <option value="can_change_order">order | Can change order</option>
+        <option value="can_delete_order">order | Can delete order</option>
+        <option value="can_view_order">order | Can view order</option>
+      </optgroup>
+
+      <optgroup label="Reporting">
+        <option value="can_create_report">report | Can create report</option>
+        <option value="can_change_report">report | Can change report</option>
+        <option value="can_delete_report">report | Can delete report</option>
+        <option value="can_view_report">report | Can view report</option>
+      </optgroup>
+
+      <optgroup label="Customer Support">
+        <option value="can_add_ticket">support | Can add ticket</option>
+        <option value="can_change_ticket">support | Can change ticket</option>
+        <option value="can_delete_ticket">support | Can delete ticket</option>
+        <option value="can_view_ticket">support | Can view ticket</option>
+      </optgroup>
+    </select>
+
+    <div style="margin-top: 10px;">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const select = document.querySelector("select");
+          new PaperCheckboxTree(select);
+      });
+  </script>
+</body>
+</html>

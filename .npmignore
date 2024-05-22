@@ -1,0 +1,16 @@
+# Dot files
+.idea/
+.github/
+.babelrc
+.prettierignore
+
+# tests
+cypress/
+cypress.config.js
+
+# build
+cache/
+rollup.config.js
+
+# source
+src/

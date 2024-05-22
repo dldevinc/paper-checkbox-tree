@@ -1,0 +1,128 @@
+/* Tree */
+.pct-tree {
+  contain: strict;
+  display: block;
+  padding: 0 0 0 0.5em;
+  overflow: hidden;
+  width: 360px;
+  height: 300px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+
+  &__inner {
+    overflow: auto;
+    display: grid;
+    gap: 12px;
+    height: 100%;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: hsl(0 0% 95%);
+      border-radius: 100vw;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: hsl(200 100% 45%);
+      border: 1px solid hsl(0 0% 95%);
+      border-radius: 100vw;
+    }
+
+    @supports (scrollbar-color: red blue) {
+      scrollbar-color: hsl(200 100% 55%) hsl(0 0% 95%);
+      scrollbar-width: thin;
+    }
+  }
+}
+
+
+.pct-group {
+  display: grid;
+  gap: 6px;
+
+  &:first-child {
+    margin-top: 0.5em;
+  }
+
+  &:last-child {
+    margin-bottom: 0.5em;
+  }
+
+  &__header {
+
+  }
+
+  &__label {
+    display: inline-flex;
+    gap: 0.4em;
+    cursor: pointer;
+  }
+
+  &__text {
+    align-self: center;
+  }
+
+  > .pct-option {
+    margin-left: 14px;
+  }
+}
+
+
+.pct-option {
+  &__label {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    gap: 0.4em;
+    cursor: pointer;
+  }
+
+  &__input {
+    position: absolute;
+    left: -100vw;
+  }
+
+  &__text {
+    align-self: center;
+  }
+}
+
+
+.pct-checkbox {
+  margin-top: max(0px, (1lh - 22px) / 2);
+  flex: none;
+
+  &__box {
+    fill: #fff;
+    stroke: #4f4f4f;
+    transition: fill 0.1s, stroke 0.1s;
+  }
+
+  &__marker,
+  &__line {
+    opacity: 0;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: opacity 0.2s;
+  }
+
+  &--checked &__box,
+  &--partial &__box {
+    fill: hsl(200 100% 45%);
+    stroke: hsl(200 100% 45%);
+  }
+
+  &--disabled &__box {
+    fill: #f8f8f8;
+    stroke: #d6d6d6;
+  }
+
+  &--partial &__line,
+  &--checked &__marker {
+    opacity: 1;
+  }
+}
