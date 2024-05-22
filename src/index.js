@@ -15,6 +15,9 @@ export default class CheckboxTree {
             optionLabelClassName: "pct-option__label",
             optionInputClassName: "pct-option__input",
             optionTextClassName: "pct-option__text",
+            checkboxCheckedClassName: "pct-checkbox--checked",
+            checkboxIndeterminateClassName: "pct-checkbox--partial",
+            checkboxDisabledClassName: "pct-checkbox--disabled",
         }
     }
 
@@ -230,8 +233,8 @@ export default class CheckboxTree {
     _updateOption(option) {
         const checkbox = option.querySelector(`.${this.options.optionInputClassName}`);
         const icon = option.querySelector("svg");
-        icon.classList.toggle("pct-checkbox--checked", checkbox.checked);
-        icon.classList.toggle("pct-checkbox--disabled", checkbox.disabled);
+        icon.classList.toggle(this.options.checkboxCheckedClassName, checkbox.checked);
+        icon.classList.toggle(this.options.checkboxDisabledClassName, checkbox.disabled);
     }
 
     /**
@@ -255,8 +258,8 @@ export default class CheckboxTree {
      * @private
      */
     setIconState(icon, state) {
-        icon.classList.toggle("pct-checkbox--checked", state === "checked");
-        icon.classList.toggle("pct-checkbox--partial", state === "partial");
+        icon.classList.toggle(this.options.checkboxCheckedClassName, state === "checked");
+        icon.classList.toggle(this.options.checkboxIndeterminateClassName, state === "partial");
     }
 
     /**
