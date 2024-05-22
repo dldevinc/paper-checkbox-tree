@@ -1,19 +1,22 @@
 .pct-tree {
-  contain: strict;
+  contain: layout;
   display: block;
   overflow: hidden;
-  width: 360px;
-  height: 300px;
   border-radius: 6px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+
+  @at-root :where(&) {
+    width: 360px;
+    max-height: 300px;
+  }
 
   &__inner {
     overflow: auto;
     display: grid;
     padding: 0 0 0 0.5em;
     gap: 12px;
-    max-height: 100%;
+    max-height: inherit;
 
     > div:first-child {
       margin-top: 0.5em;
