@@ -1,8 +1,6 @@
-/* Tree */
 .pct-tree {
   contain: strict;
   display: block;
-  padding: 0 0 0 0.5em;
   overflow: hidden;
   width: 360px;
   height: 300px;
@@ -13,8 +11,17 @@
   &__inner {
     overflow: auto;
     display: grid;
+    padding: 0 0 0 0.5em;
     gap: 12px;
-    height: 100%;
+    max-height: 100%;
+
+    > div:first-child {
+      margin-top: 0.5em;
+    }
+
+    > div:last-child {
+      margin-bottom: 0.5em;
+    }
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -43,14 +50,6 @@
   display: grid;
   gap: 6px;
 
-  &:first-child {
-    margin-top: 0.5em;
-  }
-
-  &:last-child {
-    margin-bottom: 0.5em;
-  }
-
   &__header {
 
   }
@@ -58,6 +57,8 @@
   &__label {
     display: inline-flex;
     gap: 0.4em;
+    outline-offset: 3px;
+    outline-color: hsl(200 100% 55%);
     cursor: pointer;
   }
 
@@ -77,6 +78,8 @@
     overflow: hidden;
     display: inline-flex;
     gap: 0.4em;
+    outline-offset: 3px;
+    outline-color: hsl(200 100% 55%);
     cursor: pointer;
   }
 

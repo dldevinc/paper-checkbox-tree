@@ -26,12 +26,29 @@ npm install paper-checkbox-tree
 
 ## Usage
 
+To initialize the checkbox tree, either add the class `pct-tree` to your select element:
+
+```html
+<select class="pct-tree" multiple name="permission">
+  <optgroup label="Authentication and Authorization">
+    <option value="can_add_user" disabled>user | Can add user</option>
+    <option value="can_change_user">user | Can change user</option>
+    <option value="can_delete_user" selected>user | Can delete user</option>
+    <option value="can_view_user">user | Can view user</option>
+  </optgroup>
+
+  <!-- ... -->
+</select>
+```
+
+Or, you can initialize it programmatically by instantiating a `CheckboxTree` object:
+
 ```js
 import CheckboxTree from "paper-checkbox-tree";
 import "paper-checkbox-tree/dist/index.css";
 
 // Example usage:
-const selectElement = document.getElementById("your-select-element");
+const selectElement = document.getElementById("my-select-element");
 const checkboxTree = new CheckboxTree(selectElement);
 ```
 

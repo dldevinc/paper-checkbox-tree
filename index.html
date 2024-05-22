@@ -10,7 +10,9 @@
 </head>
 <body>
   <form action="" method="get">
-    <select multiple name="interest" class="pct-tree">
+
+    <label for="select-1">Permissions:</label>
+    <select id="select-1" class="pct-tree" multiple name="permission">
       <optgroup label="Authentication and Authorization">
         <option value="can_add_user" disabled>user | Can add user</option>
         <option value="can_change_user">user | Can change user</option>
@@ -47,16 +49,20 @@
       </optgroup>
     </select>
 
+    <div style="margin-top: 10px;"></div>
+
+    <label for="select-2">Fruits:</label>
+    <select id="select-2" class="pct-tree" multiple name="fruit">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+      <option value="grape">Grape</option>
+      <option value="pineapple">Pineapple</option>
+    </select>
+
     <div style="margin-top: 10px;">
       <button type="submit">Submit</button>
     </div>
   </form>
-
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const select = document.querySelector("select");
-          new PaperCheckboxTree(select);
-      });
-  </script>
 </body>
 </html>

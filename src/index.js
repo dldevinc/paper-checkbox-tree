@@ -36,6 +36,7 @@ export default class CheckboxTree {
      * Hides the original select element.
      */
     hideSelect() {
+        this.$select.classList.remove(this.options.rootClassName);
         this.$select.hidden = true;
         this.$select.disabled = true;
         this.$select.style.display = "none";
@@ -52,6 +53,7 @@ export default class CheckboxTree {
         this.$root.appendChild(this.$inner);
 
         this._fillInner();
+        this._setTabIndex();
     }
 
     /**
@@ -200,11 +202,12 @@ export default class CheckboxTree {
         checkbox.type = "checkbox";
         checkbox.name = this.$select.name;
         checkbox.value = source.value;
+        checkbox.tabIndex = -1;
         if (source.selected) {
-            checkbox.setAttribute("checked", "checked");
+            checkbox.toggleAttribute("checked", true);
         }
         if (source.disabled) {
-            checkbox.setAttribute("disabled", "disabled");
+            checkbox.toggleAttribute("disabled", true);
         }
         label.appendChild(checkbox);
 
@@ -270,10 +273,43 @@ export default class CheckboxTree {
     }
 
     /**
+     * Sets the tab index for focusable elements.
+     * @private
+     */
+    _setTabIndex() {
+        const focusableElements = this._getFocusableElements();
+        if (!focusableElements.length) {
+            return
+        }
+
+        focusableElements[0].tabIndex = 0;
+        focusableElements.slice(1).forEach(element => {
+            element.tabIndex = -1;
+        });
+    }
+
+    /**
+     * Retrieves the focusable elements within the checkbox tree.
+     * @returns {HTMLElement[]} Array of focusable elements.
+     * @private
+     */
+    _getFocusableElements() {
+        const labels = this.$inner.querySelectorAll(
+            `.${this.options.optionLabelClassName}, .${this.options.groupLabelClassName}`
+        );
+
+        return Array.from(labels).filter(label => {
+            const input = label.querySelector(`.${this.options.optionInputClassName}`);
+            return !input || !input.disabled;
+        });
+    }
+
+    /**
      * Adds event listeners to the checkbox tree.
      * @private
      */
     addEventListeners() {
+        // Add input event listener for checkbox state changes
         this.$root.addEventListener("input", event => {
             const optionLabel = event.target.closest(`.${this.options.optionLabelClassName}`);
             if (optionLabel) {
@@ -284,12 +320,83 @@ export default class CheckboxTree {
             }
         });
 
+        // Add click event listener for group clicks
         this.$root.addEventListener("click", event => {
             const groupLabel = event.target.closest(`.${this.options.groupLabelClassName}`);
             if (groupLabel) {
                 const group = groupLabel.closest(`.${this.options.groupClassName}`);
                 if (group) {
                     this.onClickGroup(group);
+                }
+            }
+        });
+
+        // Add keypress event listener for Enter and Space keypresses
+        this.$root.addEventListener("keypress", event => {
+            if ([13, 32].includes(event.keyCode)) {
+                const option = event.target.closest(`.${this.options.optionClassName}`);
+                if (option) {
+                    event.preventDefault();
+
+                    const input = option.querySelector(`.${this.options.optionInputClassName}`);
+                    if (input && !input.disabled) {
+                        input.checked = !input.checked;
+                    }
+
+                    this.onClickOption(option);
+                    return;
+                }
+
+                const group = event.target.closest(`.${this.options.groupClassName}`);
+                if (group) {
+                    event.preventDefault();
+
+                    this.onClickGroup(group);
+                }
+            }
+        });
+
+        // Add pointerup event listener for tabindex handling
+        this.$root.addEventListener("pointerup", event => {
+            const label = event.target.closest(
+                `.${this.options.optionLabelClassName}, .${this.options.groupLabelClassName}`
+            );
+
+            if (label) {
+                const focusableElements = this._getFocusableElements();
+                focusableElements.forEach(element => {
+                    element.tabIndex = -1;
+                });
+
+                label.tabIndex = 0;
+                setTimeout(() => {
+                    label.focus();
+                });
+            }
+        });
+
+        // Add keydown event listener for arrow key navigation
+        this.$root.addEventListener("keydown", event => {
+            if ([37, 38, 39, 40].includes(event.keyCode)) {
+                event.preventDefault();
+
+                const focusableElements = this._getFocusableElements();
+                const currentElementIndex = focusableElements.indexOf(event.target);
+
+                if ([37, 38].includes(event.keyCode)) {
+                    const previousElement = focusableElements[currentElementIndex - 1];
+                    if (previousElement) {
+                        focusableElements[currentElementIndex].tabIndex = -1;
+                        previousElement.tabIndex = 0;
+                        previousElement.focus();
+                    }
+                } else {
+                    const nextElement = focusableElements[currentElementIndex + 1];
+                    if (nextElement) {
+                        focusableElements[currentElementIndex].tabIndex = -1;
+                        nextElement.tabIndex = 0;
+                        nextElement.focus();
+                    }
                 }
             }
         });
@@ -331,3 +438,9 @@ export default class CheckboxTree {
         }
     }
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const selects = document.querySelectorAll("select.pct-tree");
+    selects.forEach(select => new CheckboxTree(select));
+});
