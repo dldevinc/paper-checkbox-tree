@@ -67,6 +67,9 @@ const defaultConfig = {
     optionLabelClassName: "pct-option__label",
     optionInputClassName: "pct-option__input",
     optionTextClassName: "pct-option__text",
+    checkboxCheckedClassName: "pct-checkbox--checked",
+    checkboxIndeterminateClassName: "pct-checkbox--partial",
+    checkboxDisabledClassName: "pct-checkbox--disabled",
 };
 
 // You can pass your own settings when creating an instance:
