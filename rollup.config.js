@@ -21,37 +21,39 @@ module.exports = [{
 	],
 	output: [
 		{
-			file: "dist/cjs/index.js",
+			file: "dist/cjs.js",
 			format: "cjs",
 			exports: "named",
 			footer: "module.exports = Object.assign(exports.default, exports);",
 			sourcemap: true
 		},
 		{
-			file: "dist/es/index.js",
-			format: "es",
+			file: "dist/es.js",
+			format: "es"
 		},
 		{
-			file: "dist/umd/index.js",
+			file: "dist/umd.js",
 			format: "umd",
 			name: "PaperCheckboxTree",
 			sourcemap: true,
-			plugins: [terser()]
+			plugins: [
+				terser()
+			]
 		},
 	],
 }, {
 	input: "src/index.pcss",
 	output: {
-		file: "dist/index.js",
+		file: "dist/style.js",
 		format: "cjs"
 	},
 	plugins: [
 		del({
-			targets: "dist/index.js",
+			targets: "dist/style.js",
 			hook: "writeBundle"
 		}),
 		postcss({
-			extract: "index.css",
+			extract: "style.css",
 			plugins: [
 				cssnano({
 					preset: "default"
