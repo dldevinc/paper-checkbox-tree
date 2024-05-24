@@ -5,8 +5,42 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="./dist/index.css">
-  <script src="./dist/umd/index.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/paper-checkbox-tree/dist/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/paper-checkbox-tree/dist/umd.js" defer></script>
+
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: aliceblue;
+    }
+
+    form {
+      margin: 0;
+      padding-block: 2em;
+    }
+
+    form > label {
+      display: inline-block;
+      padding: 0 0 4px 0;
+      font-size: 18px;
+    }
+
+    form > label:not(:first-child) {
+      margin-top: 20px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: hsl(200 100% 45%);
+    }
+  </style>
 </head>
 <body>
   <form action="" method="get">
@@ -16,8 +50,8 @@
       <optgroup label="Authentication and Authorization">
         <option value="can_add_user" disabled>user | Can add user</option>
         <option value="can_change_user">user | Can change user</option>
-        <option value="can_delete_user" selected>user | Can delete user</option>
-        <option value="can_view_user">user | Can view user</option>
+        <option value="can_delete_user">user | Can delete user</option>
+        <option value="can_view_user" selected>user | Can view user</option>
       </optgroup>
 
       <optgroup label="Product Management">
@@ -49,8 +83,6 @@
       </optgroup>
     </select>
 
-    <div style="margin-top: 10px;"></div>
-
     <label for="select-2">Fruits:</label>
     <select id="select-2" class="pct-tree" multiple name="fruit">
       <option value="apple">Apple</option>
@@ -60,9 +92,7 @@
       <option value="pineapple">Pineapple</option>
     </select>
 
-    <div style="margin-top: 10px;">
-      <button type="submit">Submit</button>
-    </div>
+    <button type="submit">Submit</button>
   </form>
 </body>
 </html>
