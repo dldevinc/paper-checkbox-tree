@@ -1,3 +1,9 @@
+$scrollbar-track-color: hsl(0 0% 95%);
+$scrollbar-thumb-color: hsl(200 100% 55%);
+$outline-color: hsl(200 100% 55%);
+$checkbox-background: hsl(200 100% 45%);
+$checkbox-border-color: #4f4f4f;
+
 .pct-tree {
   contain: layout;
   display: block;
@@ -7,7 +13,7 @@
   box-sizing: border-box;
 
   @at-root :where(&) {
-    width: 360px;
+    width: min(380px, 100%);
     max-height: 300px;
   }
 
@@ -31,18 +37,18 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: hsl(0 0% 95%);
+      background: $scrollbar-track-color;
       border-radius: 100vw;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: hsl(200 100% 45%);
-      border: 1px solid hsl(0 0% 95%);
+      background: $scrollbar-thumb-color;
+      border: 1px solid $scrollbar-track-color;
       border-radius: 100vw;
     }
 
     @supports (scrollbar-color: red blue) {
-      scrollbar-color: hsl(200 100% 55%) hsl(0 0% 95%);
+      scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
       scrollbar-width: thin;
     }
   }
@@ -61,7 +67,7 @@
     display: inline-flex;
     gap: 0.4em;
     outline-offset: 3px;
-    outline-color: hsl(200 100% 55%);
+    outline-color: $outline-color;
     cursor: pointer;
   }
 
@@ -82,7 +88,7 @@
     display: inline-flex;
     gap: 0.4em;
     outline-offset: 3px;
-    outline-color: hsl(200 100% 55%);
+    outline-color: $outline-color;
     cursor: pointer;
   }
 
@@ -103,14 +109,14 @@
 
   &__box {
     fill: #fff;
-    stroke: #4f4f4f;
+    stroke: $checkbox-border-color;
     transition: fill 0.1s, stroke 0.1s;
   }
 
   &__marker,
   &__line {
     opacity: 0;
-    stroke: #fff;
+    stroke: #ffffff;
     stroke-linecap: round;
     stroke-linejoin: round;
     transition: opacity 0.2s;
@@ -118,8 +124,8 @@
 
   &--checked &__box,
   &--partial &__box {
-    fill: hsl(200 100% 45%);
-    stroke: hsl(200 100% 45%);
+    fill: $checkbox-background;
+    stroke: $checkbox-background;
   }
 
   &--disabled &__box {
