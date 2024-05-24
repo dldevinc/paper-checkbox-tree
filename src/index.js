@@ -56,7 +56,7 @@ export default class CheckboxTree {
         this.$root.appendChild(this.$inner);
 
         this._fillInner();
-        this._setTabIndex();
+        this._setInitialTabIndexes();
     }
 
     /**
@@ -91,9 +91,9 @@ export default class CheckboxTree {
 
         Array.from(this.$select.children).forEach((node) => {
             if (node.tagName === "OPTGROUP") {
-                fragment.appendChild(this._createGroup(node));
+                fragment.appendChild(this.createGroup(node));
             } else {
-                fragment.appendChild(this._createOption(node));
+                fragment.appendChild(this.createOption(node));
             }
         });
 
@@ -106,7 +106,7 @@ export default class CheckboxTree {
      * @returns {HTMLDivElement} The group element.
      * @private
      */
-    _createGroup(source) {
+    createGroup(source) {
         const group = document.createElement("div");
         group.classList.add(this.options.groupClassName);
 
@@ -115,11 +115,11 @@ export default class CheckboxTree {
 
         const fragment = document.createDocumentFragment();
         Array.from(source.children).forEach((node) => {
-            fragment.appendChild(this._createOption(node));
+            fragment.appendChild(this.createOption(node));
         });
         group.appendChild(fragment);
 
-        this._updateGroup(group);
+        this.updateGroup(group);
         return group;
     }
 
@@ -137,7 +137,7 @@ export default class CheckboxTree {
         label.classList.add(this.options.groupLabelClassName);
         header.appendChild(label);
 
-        label.insertAdjacentHTML("beforeend", this.buildIcon());
+        label.insertAdjacentHTML("beforeend", this.buildCheckboxIcon());
 
         const headerText = document.createElement("span");
         headerText.classList.add(this.options.groupTextClassName);
@@ -176,7 +176,7 @@ export default class CheckboxTree {
      * @param {HTMLElement} group - The group element.
      * @private
      */
-    _updateGroup(group) {
+    updateGroup(group) {
         const header = group.querySelector(
             `.${this.options.groupHeaderClassName}`,
         );
@@ -198,7 +198,7 @@ export default class CheckboxTree {
      * @returns {HTMLDivElement} The option element.
      * @private
      */
-    _createOption(source) {
+    createOption(source) {
         const option = document.createElement("div");
         option.classList.add(this.options.optionClassName);
 
@@ -220,14 +220,14 @@ export default class CheckboxTree {
         }
         label.appendChild(checkbox);
 
-        label.insertAdjacentHTML("beforeend", this.buildIcon());
+        label.insertAdjacentHTML("beforeend", this.buildCheckboxIcon());
 
         const labelText = document.createElement("span");
         labelText.classList.add(this.options.optionTextClassName);
         labelText.textContent = source.textContent;
         label.appendChild(labelText);
 
-        this._updateOption(option);
+        this.updateOption(option);
         return option;
     }
 
@@ -236,7 +236,7 @@ export default class CheckboxTree {
      * @param {HTMLElement} option - The option element.
      * @private
      */
-    _updateOption(option) {
+    updateOption(option) {
         const checkbox = option.querySelector(
             `.${this.options.optionInputClassName}`,
         );
@@ -255,7 +255,7 @@ export default class CheckboxTree {
      * Builds the SVG icon for checkboxes.
      * @returns {string} The SVG markup.
      */
-    buildIcon() {
+    buildCheckboxIcon() {
         return `
             <svg class="pct-checkbox" width="22" height="22" stroke-width="2">
               <rect class="pct-checkbox__box" x="1" y="1" width="20" height="20" rx="4"></rect>
@@ -283,25 +283,10 @@ export default class CheckboxTree {
     }
 
     /**
-     * Sets the state of an option element.
-     * @param {HTMLElement} option - The option element.
-     * @param {"none"|"checked"|"partial"} state - The state to set.
-     */
-    setOptionState(option, state) {
-        const input = option.querySelector(
-            `.${this.options.optionInputClassName}`,
-        );
-        if (input && !input.disabled) {
-            input.checked = state === "checked";
-            this._updateOption(option);
-        }
-    }
-
-    /**
      * Sets the tab index for focusable elements.
      * @private
      */
-    _setTabIndex() {
+    _setInitialTabIndexes() {
         const focusableElements = this._getFocusableElements();
         if (!focusableElements.length) {
             return;
@@ -459,11 +444,11 @@ export default class CheckboxTree {
      * @param {HTMLElement} option - The clicked option element.
      */
     onClickOption(option) {
-        this._updateOption(option);
+        this.updateOption(option);
 
         const group = option.closest(`.${this.options.groupClassName}`);
         if (group) {
-            this._updateGroup(group);
+            this.updateGroup(group);
         }
     }
 
@@ -491,6 +476,21 @@ export default class CheckboxTree {
                 this.setOptionState(option, "checked");
             });
             this.setIconState(groupIcon, "checked");
+        }
+    }
+
+    /**
+     * Sets the state of an option element.
+     * @param {HTMLElement} option - The option element.
+     * @param {"none"|"checked"|"partial"} state - The state to set.
+     */
+    setOptionState(option, state) {
+        const input = option.querySelector(
+            `.${this.options.optionInputClassName}`,
+        );
+        if (input && !input.disabled) {
+            input.checked = state === "checked";
+            this.updateOption(option);
         }
     }
 }
