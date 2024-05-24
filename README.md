@@ -3,11 +3,19 @@
 ![Version](https://img.shields.io/npm/v/paper-checkbox-tree)
 ![License](https://img.shields.io/npm/l/paper-checkbox-tree)
 
-## Description
-
-`paper-checkbox-tree` is a JavaScript component that transforms a select element into a checkbox tree.
+The `paper-checkbox-tree` library transforms a standard HTML <select> element 
+into an interactive tree of checkboxes. This is particularly useful for forms requiring 
+a hierarchical structure of selectable options.
 
 ![image](https://github.com/dldevinc/paper-checkbox-tree/assets/6928240/9aef1bd2-8717-4322-abde-2c41e301107b)
+
+## Features
+
+* Converts `<select>` elements with nested `<optgroup>` and `<option>` elements into 
+  a tree structure with checkboxes.
+* Supports custom CSS class names for flexible styling.
+* Allows group selection and individual option selection.
+* Provides keyboard navigation and accessibility features.
 
 ## Installation
 
@@ -45,7 +53,7 @@ Or, you can initialize it programmatically by instantiating a `CheckboxTree` obj
 
 ```js
 import CheckboxTree from "paper-checkbox-tree";
-import "paper-checkbox-tree/dist/index.css";
+import "paper-checkbox-tree/dist/style.css";
 
 // Example usage:
 const selectElement = document.getElementById("my-select-element");
@@ -54,28 +62,33 @@ const checkboxTree = new CheckboxTree(selectElement);
 
 ## Configuration
 
-```js
-// By default, the configuration looks like this:
-const defaultConfig = {
-    rootClassName: "pct-tree",
-    innerClassName: "pct-tree__inner",
-    groupClassName: "pct-group",
-    groupHeaderClassName: "pct-group__header",
-    groupLabelClassName: "pct-group__label",
-    groupTextClassName: "pct-group__text",
-    optionClassName: "pct-option",
-    optionLabelClassName: "pct-option__label",
-    optionInputClassName: "pct-option__input",
-    optionTextClassName: "pct-option__text",
-    checkboxCheckedClassName: "pct-checkbox--checked",
-    checkboxIndeterminateClassName: "pct-checkbox--partial",
-    checkboxDisabledClassName: "pct-checkbox--disabled",
-};
+You can customize the default CSS class names by passing an options object when 
+initializing the `CheckboxTree`. Here is the default configuration:
 
-// You can pass your own settings when creating an instance:
-const checkboxTree = new CheckboxTree(selectElement, {
-    // your setting 1,
-    // your setting 2,
-    // ...
+```js
+{
+    rootClassName: "pct-tree",
+        innerClassName: "pct-tree__inner",
+        groupClassName: "pct-group",
+        groupHeaderClassName: "pct-group__header",
+        groupLabelClassName: "pct-group__label",
+        groupTextClassName: "pct-group__text",
+        optionClassName: "pct-option",
+        optionLabelClassName: "pct-option__label",
+        optionInputClassName: "pct-option__input",
+        optionTextClassName: "pct-option__text",
+        checkboxCheckedClassName: "pct-checkbox--checked",
+        checkboxIndeterminateClassName: "pct-checkbox--partial",
+        checkboxDisabledClassName: "pct-checkbox--disabled",
+}
+```
+
+For example:
+
+```js
+new CheckboxTree(selectElement, {
+    rootClassName: "custom-tree",
+    optionClassName: "custom-option",
+    // other custom class names
 });
 ```
