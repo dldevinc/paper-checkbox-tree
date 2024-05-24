@@ -1,6 +1,6 @@
 {
   "name": "paper-checkbox-tree",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A JavaScript component that transforms a select element into a checkbox tree.",
   "keywords": [
     "widgets",
