@@ -18,7 +18,7 @@ export default class CheckboxTree {
             checkboxCheckedClassName: "pct-checkbox--checked",
             checkboxIndeterminateClassName: "pct-checkbox--partial",
             checkboxDisabledClassName: "pct-checkbox--disabled",
-        }
+        };
     }
 
     /**
@@ -89,7 +89,7 @@ export default class CheckboxTree {
     _fillInner() {
         const fragment = document.createDocumentFragment();
 
-        Array.from(this.$select.children).forEach(node => {
+        Array.from(this.$select.children).forEach((node) => {
             if (node.tagName === "OPTGROUP") {
                 fragment.appendChild(this._createGroup(node));
             } else {
@@ -114,7 +114,7 @@ export default class CheckboxTree {
         group.appendChild(header);
 
         const fragment = document.createDocumentFragment();
-        Array.from(source.children).forEach(node => {
+        Array.from(source.children).forEach((node) => {
             fragment.appendChild(this._createOption(node));
         });
         group.appendChild(fragment);
@@ -156,10 +156,14 @@ export default class CheckboxTree {
      */
     _getGroupStates(group) {
         const optionStates = [];
-        const options = group.querySelectorAll(`.${this.options.optionClassName}`);
+        const options = group.querySelectorAll(
+            `.${this.options.optionClassName}`,
+        );
 
-        options.forEach(option => {
-            const input = option.querySelector(`.${this.options.optionInputClassName}`);
+        options.forEach((option) => {
+            const input = option.querySelector(
+                `.${this.options.optionInputClassName}`,
+            );
             if (input && !input.disabled) {
                 optionStates.push(input.checked ? 1 : 0);
             }
@@ -173,13 +177,15 @@ export default class CheckboxTree {
      * @private
      */
     _updateGroup(group) {
-        const header = group.querySelector(`.${this.options.groupHeaderClassName}`);
+        const header = group.querySelector(
+            `.${this.options.groupHeaderClassName}`,
+        );
         const icon = header.querySelector("svg");
         const groupStates = this._getGroupStates(group);
 
-        if (groupStates.every(s => s === 1)) {
+        if (groupStates.every((s) => s === 1)) {
             this.setIconState(icon, "checked");
-        } else if (groupStates.some(s => s === 1)) {
+        } else if (groupStates.some((s) => s === 1)) {
             this.setIconState(icon, "partial");
         } else {
             this.setIconState(icon, "none");
@@ -231,10 +237,18 @@ export default class CheckboxTree {
      * @private
      */
     _updateOption(option) {
-        const checkbox = option.querySelector(`.${this.options.optionInputClassName}`);
+        const checkbox = option.querySelector(
+            `.${this.options.optionInputClassName}`,
+        );
         const icon = option.querySelector("svg");
-        icon.classList.toggle(this.options.checkboxCheckedClassName, checkbox.checked);
-        icon.classList.toggle(this.options.checkboxDisabledClassName, checkbox.disabled);
+        icon.classList.toggle(
+            this.options.checkboxCheckedClassName,
+            checkbox.checked,
+        );
+        icon.classList.toggle(
+            this.options.checkboxDisabledClassName,
+            checkbox.disabled,
+        );
     }
 
     /**
@@ -258,8 +272,14 @@ export default class CheckboxTree {
      * @private
      */
     setIconState(icon, state) {
-        icon.classList.toggle(this.options.checkboxCheckedClassName, state === "checked");
-        icon.classList.toggle(this.options.checkboxIndeterminateClassName, state === "partial");
+        icon.classList.toggle(
+            this.options.checkboxCheckedClassName,
+            state === "checked",
+        );
+        icon.classList.toggle(
+            this.options.checkboxIndeterminateClassName,
+            state === "partial",
+        );
     }
 
     /**
@@ -268,7 +288,9 @@ export default class CheckboxTree {
      * @param {"none"|"checked"|"partial"} state - The state to set.
      */
     setOptionState(option, state) {
-        const input = option.querySelector(`.${this.options.optionInputClassName}`);
+        const input = option.querySelector(
+            `.${this.options.optionInputClassName}`,
+        );
         if (input && !input.disabled) {
             input.checked = state === "checked";
             this._updateOption(option);
@@ -282,11 +304,11 @@ export default class CheckboxTree {
     _setTabIndex() {
         const focusableElements = this._getFocusableElements();
         if (!focusableElements.length) {
-            return
+            return;
         }
 
         focusableElements[0].tabIndex = 0;
-        focusableElements.slice(1).forEach(element => {
+        focusableElements.slice(1).forEach((element) => {
             element.tabIndex = -1;
         });
     }
@@ -298,11 +320,13 @@ export default class CheckboxTree {
      */
     _getFocusableElements() {
         const labels = this.$inner.querySelectorAll(
-            `.${this.options.optionLabelClassName}, .${this.options.groupLabelClassName}`
+            `.${this.options.optionLabelClassName}, .${this.options.groupLabelClassName}`,
         );
 
-        return Array.from(labels).filter(label => {
-            const input = label.querySelector(`.${this.options.optionInputClassName}`);
+        return Array.from(labels).filter((label) => {
+            const input = label.querySelector(
+                `.${this.options.optionInputClassName}`,
+            );
             return !input || !input.disabled;
         });
     }
@@ -313,10 +337,14 @@ export default class CheckboxTree {
      */
     addEventListeners() {
         // Add input event listener for checkbox state changes
-        this.$root.addEventListener("input", event => {
-            const optionLabel = event.target.closest(`.${this.options.optionLabelClassName}`);
+        this.$root.addEventListener("input", (event) => {
+            const optionLabel = event.target.closest(
+                `.${this.options.optionLabelClassName}`,
+            );
             if (optionLabel) {
-                const option = optionLabel.closest(`.${this.options.optionClassName}`);
+                const option = optionLabel.closest(
+                    `.${this.options.optionClassName}`,
+                );
                 if (option) {
                     this.onClickOption(option);
                 }
@@ -324,10 +352,14 @@ export default class CheckboxTree {
         });
 
         // Add click event listener for group clicks
-        this.$root.addEventListener("click", event => {
-            const groupLabel = event.target.closest(`.${this.options.groupLabelClassName}`);
+        this.$root.addEventListener("click", (event) => {
+            const groupLabel = event.target.closest(
+                `.${this.options.groupLabelClassName}`,
+            );
             if (groupLabel) {
-                const group = groupLabel.closest(`.${this.options.groupClassName}`);
+                const group = groupLabel.closest(
+                    `.${this.options.groupClassName}`,
+                );
                 if (group) {
                     this.onClickGroup(group);
                 }
@@ -335,13 +367,17 @@ export default class CheckboxTree {
         });
 
         // Add keypress event listener for Enter and Space keypresses
-        this.$root.addEventListener("keypress", event => {
+        this.$root.addEventListener("keypress", (event) => {
             if ([13, 32].includes(event.keyCode)) {
-                const option = event.target.closest(`.${this.options.optionClassName}`);
+                const option = event.target.closest(
+                    `.${this.options.optionClassName}`,
+                );
                 if (option) {
                     event.preventDefault();
 
-                    const input = option.querySelector(`.${this.options.optionInputClassName}`);
+                    const input = option.querySelector(
+                        `.${this.options.optionInputClassName}`,
+                    );
                     if (input && !input.disabled) {
                         input.checked = !input.checked;
                     }
@@ -350,7 +386,9 @@ export default class CheckboxTree {
                     return;
                 }
 
-                const group = event.target.closest(`.${this.options.groupClassName}`);
+                const group = event.target.closest(
+                    `.${this.options.groupClassName}`,
+                );
                 if (group) {
                     event.preventDefault();
 
@@ -360,14 +398,14 @@ export default class CheckboxTree {
         });
 
         // Add pointerup event listener for tabindex handling
-        this.$root.addEventListener("pointerup", event => {
+        this.$root.addEventListener("pointerup", (event) => {
             const label = event.target.closest(
-                `.${this.options.optionLabelClassName}, .${this.options.groupLabelClassName}`
+                `.${this.options.optionLabelClassName}, .${this.options.groupLabelClassName}`,
             );
 
             if (label) {
                 const focusableElements = this._getFocusableElements();
-                focusableElements.forEach(element => {
+                focusableElements.forEach((element) => {
                     element.tabIndex = -1;
                 });
 
@@ -379,22 +417,26 @@ export default class CheckboxTree {
         });
 
         // Add keydown event listener for arrow key navigation
-        this.$root.addEventListener("keydown", event => {
+        this.$root.addEventListener("keydown", (event) => {
             if ([37, 38, 39, 40].includes(event.keyCode)) {
                 event.preventDefault();
 
                 const focusableElements = this._getFocusableElements();
-                const currentElementIndex = focusableElements.indexOf(event.target);
+                const currentElementIndex = focusableElements.indexOf(
+                    event.target,
+                );
 
                 if ([37, 38].includes(event.keyCode)) {
-                    const previousElement = focusableElements[currentElementIndex - 1];
+                    const previousElement =
+                        focusableElements[currentElementIndex - 1];
                     if (previousElement) {
                         focusableElements[currentElementIndex].tabIndex = -1;
                         previousElement.tabIndex = 0;
                         previousElement.focus();
                     }
                 } else {
-                    const nextElement = focusableElements[currentElementIndex + 1];
+                    const nextElement =
+                        focusableElements[currentElementIndex + 1];
                     if (nextElement) {
                         focusableElements[currentElementIndex].tabIndex = -1;
                         nextElement.tabIndex = 0;
@@ -423,18 +465,22 @@ export default class CheckboxTree {
      * @param {HTMLElement} group - The clicked group element.
      */
     onClickGroup(group) {
-        const header = group.querySelector(`.${this.options.groupHeaderClassName}`);
+        const header = group.querySelector(
+            `.${this.options.groupHeaderClassName}`,
+        );
         const groupIcon = header.querySelector("svg");
-        const options = group.querySelectorAll(`.${this.options.optionClassName}`);
+        const options = group.querySelectorAll(
+            `.${this.options.optionClassName}`,
+        );
         const groupStates = this._getGroupStates(group);
 
-        if (groupStates.every(s => s === 1)) {
-            options.forEach(option => {
+        if (groupStates.every((s) => s === 1)) {
+            options.forEach((option) => {
                 this.setOptionState(option, "none");
             });
             this.setIconState(groupIcon, "none");
         } else {
-            options.forEach(option => {
+            options.forEach((option) => {
                 this.setOptionState(option, "checked");
             });
             this.setIconState(groupIcon, "checked");
@@ -442,8 +488,7 @@ export default class CheckboxTree {
     }
 }
 
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const selects = document.querySelectorAll("select.pct-tree");
-    selects.forEach(select => new CheckboxTree(select));
+    selects.forEach((select) => new CheckboxTree(select));
 });

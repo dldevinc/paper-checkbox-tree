@@ -14,8 +14,8 @@
 You can include the library directly in your HTML file from the CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/paper-checkbox-tree"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/paper-checkbox-tree/dist/style.css">
+<script src="https://cdn.jsdelivr.net/npm/paper-checkbox-tree/dist/umd.js" defer></script>
 ```
 
 Alternatively, you can install the library via npm:
