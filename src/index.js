@@ -404,6 +404,13 @@ export default class CheckboxTree {
             );
 
             if (label) {
+                const input = label.querySelector(
+                    `.${this.options.optionInputClassName}`,
+                );
+                if (input && input.disabled) {
+                    return
+                }
+
                 const focusableElements = this._getFocusableElements();
                 focusableElements.forEach((element) => {
                     element.tabIndex = -1;
