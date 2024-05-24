@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/npm/v/paper-checkbox-tree)
 ![License](https://img.shields.io/npm/l/paper-checkbox-tree)
 
-The `paper-checkbox-tree` library transforms a standard HTML `<select>` element 
+The `paper-checkbox-tree` library transforms a standard HTML `<select multiple>` element 
 into an interactive tree of checkboxes. This is particularly useful for forms requiring 
 a hierarchical structure of selectable options.
 
@@ -13,7 +13,7 @@ a hierarchical structure of selectable options.
 
 ## Features
 
-* Converts `<select>` elements with nested `<optgroup>` and `<option>` elements into 
+* Converts `<select multiple>` elements with nested `<optgroup>` and `<option>` elements into 
   a tree structure with checkboxes.
 * Supports custom CSS class names for flexible styling.
 * Allows group selection and individual option selection.
