@@ -70,18 +70,18 @@ initializing the `CheckboxTree`. Here is the default configuration:
 ```js
 {
     rootClassName: "pct-tree",
-        innerClassName: "pct-tree__inner",
-        groupClassName: "pct-group",
-        groupHeaderClassName: "pct-group__header",
-        groupLabelClassName: "pct-group__label",
-        groupTextClassName: "pct-group__text",
-        optionClassName: "pct-option",
-        optionLabelClassName: "pct-option__label",
-        optionInputClassName: "pct-option__input",
-        optionTextClassName: "pct-option__text",
-        checkboxCheckedClassName: "pct-checkbox--checked",
-        checkboxIndeterminateClassName: "pct-checkbox--partial",
-        checkboxDisabledClassName: "pct-checkbox--disabled",
+    innerClassName: "pct-tree__inner",
+    groupClassName: "pct-group",
+    groupHeaderClassName: "pct-group__header",
+    groupLabelClassName: "pct-group__label",
+    groupTextClassName: "pct-group__text",
+    optionClassName: "pct-option",
+    optionLabelClassName: "pct-option__label",
+    optionInputClassName: "pct-option__input",
+    optionTextClassName: "pct-option__text",
+    checkboxCheckedClassName: "pct-checkbox--checked",
+    checkboxIndeterminateClassName: "pct-checkbox--partial",
+    checkboxDisabledClassName: "pct-checkbox--disabled",
 }
 ```
 
