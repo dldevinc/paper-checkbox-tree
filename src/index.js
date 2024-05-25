@@ -5,6 +5,8 @@ export default class CheckboxTree {
      */
     get Defaults() {
         return {
+            groupAllOptions: false,
+            groupAllLabel: "All",
             rootClassName: "pct-tree",
             innerClassName: "pct-tree__inner",
             groupClassName: "pct-group",
@@ -29,6 +31,13 @@ export default class CheckboxTree {
     constructor(select, options) {
         this.$select = select;
         this.options = Object.assign({}, this.Defaults, options);
+
+        // Read some options from data attributes.
+        const groupAllOptions = this.$select.getAttribute("data-pct-group-all-options");
+        if (groupAllOptions !== null) {
+            this.options.groupAllOptions = true;
+            this.options.groupAllLabel = groupAllOptions || this.options.groupAllLabel;
+        }
 
         this.hideSelect();
         this.buildDOM();
@@ -88,29 +97,40 @@ export default class CheckboxTree {
      */
     _fillInner() {
         const fragment = document.createDocumentFragment();
+        const children = Array.from(this.$select.children);
 
-        Array.from(this.$select.children).forEach((node) => {
-            if (node.tagName === "OPTGROUP") {
-                fragment.appendChild(this.createGroup(node));
-            } else {
-                fragment.appendChild(this.createOption(node));
-            }
-        });
+        if (!children.length) {
+            return
+        }
+
+        const hasOptgroup = children.some((node) => node.tagName === "OPTGROUP");
+        if (!hasOptgroup && this.options.groupAllOptions) {
+            fragment.appendChild(this.createGroup(this.$select, this.options.groupAllLabel));
+        } else {
+            children.forEach((node) => {
+                if (node.tagName === "OPTGROUP") {
+                    fragment.appendChild(this.createGroup(node));
+                } else {
+                    fragment.appendChild(this.createOption(node));
+                }
+            });
+        }
 
         this.$inner.appendChild(fragment);
     }
 
     /**
      * Creates a group element based on an OPTGROUP element.
-     * @param {HTMLOptGroupElement} source - The source OPTGROUP element.
+     * @param {HTMLOptGroupElement|HTMLSelectElement} source - The source OPTGROUP element.
+     * @param {string} [label] - The label of the group.
      * @returns {HTMLDivElement} The group element.
      * @private
      */
-    createGroup(source) {
+    createGroup(source, label) {
         const group = document.createElement("div");
         group.classList.add(this.options.groupClassName);
 
-        const header = this._createGroupHeader(source);
+        const header = this._createGroupHeader(source, label);
         group.appendChild(header);
 
         const fragment = document.createDocumentFragment();
@@ -126,23 +146,24 @@ export default class CheckboxTree {
     /**
      * Creates the header for a group element.
      * @param {HTMLOptGroupElement} source - The source OPTGROUP element.
+     * @param {string} [label] - The label of the group.
      * @returns {HTMLDivElement} The group header element.
      * @private
      */
-    _createGroupHeader(source) {
+    _createGroupHeader(source, label) {
         const header = document.createElement("div");
         header.classList.add(this.options.groupHeaderClassName);
 
-        const label = document.createElement("div");
-        label.classList.add(this.options.groupLabelClassName);
-        header.appendChild(label);
+        const labelNode = document.createElement("div");
+        labelNode.classList.add(this.options.groupLabelClassName);
+        header.appendChild(labelNode);
 
-        label.insertAdjacentHTML("beforeend", this.buildCheckboxIcon());
+        labelNode.insertAdjacentHTML("beforeend", this.buildCheckboxIcon());
 
         const headerText = document.createElement("span");
         headerText.classList.add(this.options.groupTextClassName);
-        headerText.textContent = source.label;
-        label.appendChild(headerText);
+        headerText.textContent = label || source.label;
+        labelNode.appendChild(headerText);
 
         return header;
     }

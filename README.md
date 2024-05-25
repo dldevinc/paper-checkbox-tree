@@ -64,11 +64,13 @@ const checkboxTree = new CheckboxTree(selectElement);
 
 ## Configuration
 
-You can customize the default CSS class names by passing an options object when 
-initializing the `CheckboxTree`. Here is the default configuration:
+You can customize the default CSS class names and behavior by passing an options object 
+when initializing the `CheckboxTree`. Here is the default configuration:
 
 ```js
 {
+    groupAllOptions: false,
+    groupAllLabel: "All",
     rootClassName: "pct-tree",
     innerClassName: "pct-tree__inner",
     groupClassName: "pct-group",
@@ -85,7 +87,9 @@ initializing the `CheckboxTree`. Here is the default configuration:
 }
 ```
 
-For example:
+### Customizing Class Names
+
+You can customize the CSS class names to match your styling preferences:
 
 ```js
 new CheckboxTree(selectElement, {
@@ -93,4 +97,39 @@ new CheckboxTree(selectElement, {
     optionClassName: "custom-option",
     // other custom class names
 });
+```
+
+### Grouping All Options
+
+If there are no `<optgroup>` elements present in the `<select>`, enabling the 
+`groupAllOptions` option will group all options under a single group. You can specify 
+the label for this group using the `groupAllLabel` option:
+
+```js
+new CheckboxTree(selectElement, {
+    groupAllOptions: true,
+    groupAllLabel: "All Options",
+});
+```
+
+This will create a group named "All Options" containing all the options in the `<select>`
+element. If `<optgroup>` elements are present, the "All Options" group will **not** be created.
+
+### Using Data Attributes
+
+You can also specify the `groupAllOptions` and `groupAllLabel` options using data 
+attribute `data-pct-group-all-options`:
+
+<select class="pct-tree" multiple data-pct-group-all-options="All options">
+  <!-- Options and optgroups -->
+</select>
+
+This will set `groupAllOptions` to `true` and use "All options" as the label for the group.
+If you don't provide a value for `data-pct-group-all-options`, it will default to `true`, 
+and the default label "All" will be used:
+
+```html
+<select class="pct-tree" multiple data-pct-group-all-options>
+  <!-- Options and optgroups -->
+</select>
 ```
