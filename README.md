@@ -7,7 +7,7 @@ The `paper-checkbox-tree` library transforms a standard HTML `<select multiple>`
 into an interactive tree of checkboxes. This is particularly useful for forms requiring 
 a hierarchical structure of selectable options.
 
-![image](https://github.com/dldevinc/paper-checkbox-tree/assets/6928240/9aef1bd2-8717-4322-abde-2c41e301107b)
+![image](https://github.com/dldevinc/paper-checkbox-tree/assets/6928240/16ccaa19-9081-4c28-a010-f5d56fbfebb1)
 
 [Demo](https://dldevinc.github.io/paper-checkbox-tree/)
 

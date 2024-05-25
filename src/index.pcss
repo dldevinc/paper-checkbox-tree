@@ -2,7 +2,52 @@ $scrollbar-track-color: hsl(0 0% 95%);
 $scrollbar-thumb-color: hsl(200 100% 55%);
 $outline-color: hsl(200 100% 55%);
 $checkbox-background: hsl(200 100% 45%);
-$checkbox-border-color: #4f4f4f;
+$checkbox-border-color: #d0d0d0;
+
+
+.pct-checkbox {
+  margin-top: max(0px, (1lh - 22px) / 2);
+  flex: none;
+
+  &__box {
+    x: 0.5;
+    y: 0.5;
+    rx: 4;
+    width: 21;
+    height: 21;
+    fill: #fff;
+    stroke: $checkbox-border-color;
+    stroke-width: 1;
+    transition: fill 0.15s, stroke 0.15s;
+  }
+
+  &__marker,
+  &__line {
+    opacity: 0;
+    stroke: #ffffff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: opacity 0.2s;
+  }
+
+  &--checked &__box,
+  &--partial &__box {
+    fill: $checkbox-background;
+    stroke: $checkbox-background;
+  }
+
+  &--disabled &__box {
+    fill: #f8f8f8;
+    stroke: #d6d6d6;
+  }
+
+  &--partial &__line,
+  &--checked &__marker {
+    opacity: 1;
+  }
+}
+
 
 .pct-tree {
   contain: layout;
@@ -69,6 +114,10 @@ $checkbox-border-color: #4f4f4f;
     outline-offset: 3px;
     outline-color: $outline-color;
     cursor: pointer;
+
+    &:active .pct-checkbox .pct-checkbox__box {
+      stroke: $outline-color;
+    }
   }
 
   &__text {
@@ -95,46 +144,13 @@ $checkbox-border-color: #4f4f4f;
   &__input {
     position: absolute;
     left: -100vw;
+
+    &:active:not(:checked) + .pct-checkbox .pct-checkbox__box {
+      stroke: $outline-color;
+    }
   }
 
   &__text {
     align-self: center;
-  }
-}
-
-
-.pct-checkbox {
-  margin-top: max(0px, (1lh - 22px) / 2);
-  flex: none;
-
-  &__box {
-    fill: #fff;
-    stroke: $checkbox-border-color;
-    transition: fill 0.1s, stroke 0.1s;
-  }
-
-  &__marker,
-  &__line {
-    opacity: 0;
-    stroke: #ffffff;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: opacity 0.2s;
-  }
-
-  &--checked &__box,
-  &--partial &__box {
-    fill: $checkbox-background;
-    stroke: $checkbox-background;
-  }
-
-  &--disabled &__box {
-    fill: #f8f8f8;
-    stroke: #d6d6d6;
-  }
-
-  &--partial &__line,
-  &--checked &__marker {
-    opacity: 1;
   }
 }

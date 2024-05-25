@@ -257,10 +257,10 @@ export default class CheckboxTree {
      */
     buildCheckboxIcon() {
         return `
-            <svg class="pct-checkbox" width="22" height="22" stroke-width="2">
-              <rect class="pct-checkbox__box" x="1" y="1" width="20" height="20" rx="4"></rect>
-              <path class="pct-checkbox__marker" d="M4,13 8,17 18,6" fill="none"></path>
-              <path class="pct-checkbox__line" d="M5,11 17,11" fill="none"></path>
+            <svg class="pct-checkbox" width="22" height="22" fill="none">
+              <rect class="pct-checkbox__box"></rect>
+              <path class="pct-checkbox__marker" d="M4,13 8,17 18,6"></path>
+              <path class="pct-checkbox__line" d="M5,11 17,11"></path>
             </svg>
         `;
     }
