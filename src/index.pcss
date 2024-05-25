@@ -66,8 +66,12 @@ $checkbox-border-color: #d0d0d0;
     overflow: auto;
     display: grid;
     padding: 0 0 0 0.5em;
-    gap: 12px;
+    gap: 6px;
     max-height: inherit;
+
+    &:has(.pct-group) {
+      gap: 12px;
+    }
 
     > div:first-child {
       margin-top: 0.5em;
